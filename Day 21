@@ -1,0 +1,25 @@
+
+sudo apt install docker.io # install docker 
+
+sudo systemctl start docker # start docker
+
+sudo systemctl enable docker # enable docker
+
+sudo apt install curl #install curl
+
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash #install azure command line
+
+docker run -it --rm -p 8080:80 mcr.microsoft.com/oss/nginx/nginx:1.15.5-alpine # pull docker image from mcr
+
+sudo chmod 666 /var/run/docker.sock # change permission of docker socket
+
+go to http://localhost:8080 # check docker image running locally
+
+az login -- tenant <tenant-id> # login to azure subscription from ubuntu terminal, replace <tenant-id> with tenant id from Azure AD
+
+az acr login --name <container_registry_name> # login to azure container registry,replace <container_registry_name> with name of ACR
+
+docker tag mcr.microsoft.com/oss/nginx/nginx:1.15.5-alpine <container_registry_name>.azurecr.io/samples/nginx #tag docker image, replace <container_registry_name> with name of ACR
+
+docker push <container_registry_name>.azurecr.io/samples/nginx #push the docker image to azure container registry,replace <container_registry_name> with name of ACR
+
