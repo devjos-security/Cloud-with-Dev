@@ -28,7 +28,7 @@ docker push <replace with name of container registry in azure>/azure-vote-front:
 
 az aks install-cli # install aks CLI locally
 
-az aks get-credentials --resource-group rescon --name <replace with name of kubernetes cluster created> 
+az aks get-credentials --resource-group rescon --name <replace with name of kubernetes cluster created> #downloads credentials and enables kubectl to use it
 
 kubectl get nodes # validate the kubernetes creation using get nodes
 
