@@ -1,0 +1,41 @@
+sudo apt install git-all #install git locally
+
+git --version # check the git version on your local computer
+
+git clone https://github.com/Azure-Samples/azure-voting-app-redis.git # clone the git repo locally
+
+cd azure-voting-app-redis # change directory and check if cloning was sucessful
+
+sudo apt install docker-compose #install docker compose, Compose is a tool for defining and running multi-container Docker applications.
+
+sudo docker-compose up -d # Compose is a tool for defining and running multi-container Docker applications
+
+sudo docker images # check docker images running locally
+
+sudo docker image rm mcr.microsoft.com/oss/nginx/nginx:1.15.5-alpine #if old container exists,remove them.else you will see them when pointing to localhost:8080
+
+# go to http://localhost:8080 in the browser on local machine 
+
+# go to azure portal and create a container registry using browser
+
+docker tag mcr.microsoft.com/azuredocs/azure-vote-front:v1 devstestregg.azurecr.io/azure-vote-front:v1 #tag the local docker image replace name of container reg you created in previous step
+
+az login --tenant <tenant id> # login to azure from ubuntu terminal,replace with tenant id
+
+az acr login --name <replace with name of container registry in azure> # login to container registry in azure from linux VM
+
+docker push <replace with name of container registry in azure>/azure-vote-front:v1 #push image to azure container registry
+
+az aks install-cli # install aks CLI locally
+
+az aks get-credentials --resource-group rescon --name <replace with name of kubernetes cluster created> 
+
+kubectl get nodes # validate the kubernetes creation using get nodes
+
+az acr list --resource-group rescon --query "[].{acrLoginServer:loginServer}" --output table #Get the ACR login server name
+
+vi azure-vote-all-in-one-redis.yaml #Replace mcr.microsoft.com with your ACR login server name on line 60
+
+kubectl apply -f azure-vote-all-in-one-redis.yaml #parses the updated manifest file and creates the kubernetes resources
+
+kubectl get service azure-vote-front --watch # monitor progress and test the application
